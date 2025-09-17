@@ -9,6 +9,11 @@ Description: Save Contact form 7 to enkuire
 Author: Caspian Digital Solution
 Author URI: https://caspiands.com/
 Version: 1.1.0
+Tested up to: 6.9
+Stable tag: 1.1.0
+License: GPLv2 or later
+License URI: https://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+Text Domain: cf7-enkuire
 */
 
 /*
@@ -89,13 +94,20 @@ function cds_render_plugin_settings_page() {
         <?php 
         settings_fields( 'enkuire' );
         do_settings_sections( 'enkuire' ); ?>
-        <input name="submit" class="button button-primary" type="submit" value="<?php esc_attr_e( 'Save' ); ?>" />
+        <input name="submit" class="button button-primary" type="submit" value="<?php esc_attr_e( 'Save', 'cf7-enkuire'); ?>" />
     </form>
     <?php
 }
 
 function cds_register_settings() {
-    register_setting('enkuire', 'enkuire');
+    register_setting(
+        'enkuire', 
+        'enkuire', 
+        array(
+            'sanitize_callback' => 'cds_sanitize_options',
+            'default' => array('group_id' => '', 'submit_url' => array(''))
+        )
+    );
     add_settings_section('enkuire_section', '', '__return_false', 'enkuire' );
 
     add_settings_field( 'enk_group_id', 'Organization Id', 'cds_group_id', 'enkuire', 'enkuire_section' );
@@ -132,4 +144,36 @@ function cds_submit_url() {
 			jQuery('.url_row button').css('display', jQuery('.url_row').length>1? 'block' : 'none' );
 		})
 	</script>";
+}
+
+/**
+ * Sanitize the options before saving to database
+ *
+ * @param array $input The input array to sanitize
+ * @return array Sanitized input array
+ */
+function cds_sanitize_options($input) {
+    $sanitized_input = array();
+    
+    // Sanitize group_id (should be a positive integer)
+    if (isset($input['group_id'])) {
+        $sanitized_input['group_id'] = absint($input['group_id']);
+    } else {
+        $sanitized_input['group_id'] = '';
+    }
+    
+    // Sanitize submit_url array (should be valid URLs)
+    if (isset($input['submit_url']) && is_array($input['submit_url'])) {
+        $sanitized_input['submit_url'] = array();
+        foreach ($input['submit_url'] as $url) {
+            $clean_url = esc_url_raw(trim($url));
+            if (!empty($clean_url)) {
+                $sanitized_input['submit_url'][] = $clean_url;
+            }
+        }
+    } else {
+        $sanitized_input['submit_url'] = array('');
+    }
+    
+    return $sanitized_input;
 }
