@@ -1,8 +1,8 @@
 # Enkuire Lead
-Tested up to: 6.9
-Stable tag: 1.1.0
-License: GPLv2 or later
-License URI: https://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+- Tested up to: 6.9
+- Stable tag: 1.1.0
+- License: GPLv2 or later
+- License URI: https://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 
 ## Overview
 Enkuire Lead is a WordPress plugin that captures leads from Contact Form 7 submissions and transfers them to the Enkuire App. This plugin serves as a bridge between your WordPress website's contact forms and your lead management system in Enkuire.
