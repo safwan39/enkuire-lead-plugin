@@ -32,7 +32,7 @@ The plugin automatically maps common form fields to Enkuire lead fields:
 In the WordPress admin panel:
 1. Go to Settings > Enkuire
 2. Enter your Enkuire endpoint URL(s)
-3. Optionally set a default group ID
+3. Set a default group ID
 4. Save your settings
 
 ## Requirements
