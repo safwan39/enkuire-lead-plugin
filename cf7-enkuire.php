@@ -33,7 +33,6 @@ function cds_deactivated(){
 
 
 function cds_process_lead( $form_tag ) {
-
     $submission   = WPCF7_Submission::get_instance();
     $contact_form = $submission->get_contact_form();
     $options = get_option('enkuire');
@@ -177,3 +176,34 @@ function cds_sanitize_options($input) {
     
     return $sanitized_input;
 }
+
+// Add referrer URL and search params to all forms
+add_action('wp_footer', function () {
+    ?>
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const forms = document.querySelectorAll('form');
+        const url = window.location.href;
+        const searchParams = new URLSearchParams(window.location.search);
+
+        forms.forEach(form => {
+            // Add full referrer URL
+            const refInput = document.createElement('input');
+            refInput.type = 'hidden';
+            refInput.name = 'ref_url';
+            refInput.value = url;
+            form.appendChild(refInput);
+
+            // Add each search parameter as its own hidden input
+            searchParams.forEach((value, key) => {
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = key;
+                input.value = value;
+                form.appendChild(input);
+            });
+        });
+    });
+    </script>
+    <?php
+});
