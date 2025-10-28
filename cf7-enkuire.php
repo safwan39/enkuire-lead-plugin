@@ -5,7 +5,7 @@
  */
 /*
 Plugin Name: Enkuire Lead
-Description: Save Contact form 7 to enkuire
+Description: Enkuire Lead is a WordPress plugin that captures leads from Contact Form 7 submissions and transfers them to the Enkuire App. This plugin serves as a bridge between your WordPress website's contact forms and your lead management system in Enkuire.
 Author: Caspian Digital Solution
 Author URI: https://caspiands.com/
 Version: 1.1.0
@@ -13,7 +13,7 @@ Tested up to: 6.9
 Stable tag: 1.1.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/old-licenses/gpl-2.0.html
-Text Domain: cf7-enkuire
+Text Domain: enkuire-lead
 */
 
 /*
@@ -93,7 +93,7 @@ function cds_render_plugin_settings_page() {
         <?php 
         settings_fields( 'enkuire' );
         do_settings_sections( 'enkuire' ); ?>
-        <input name="submit" class="button button-primary" type="submit" value="<?php esc_attr_e( 'Save', 'cf7-enkuire'); ?>" />
+        <input name="submit" class="button button-primary" type="submit" value="<?php esc_attr_e( 'Save', 'enkuire-lead'); ?>" />
     </form>
     <?php
 }
