@@ -67,7 +67,7 @@ function cds_getRealIp(){
 }
 
 function cds_setFieldValue($data){
-    $cols = [ '\w+name$' => 'lead_name', 'email'=> 'lead_email', '(contact|mobile|phone)([-_]?number)?$'=> 'lead_phone', '^utm$' => 'lead_utm']; 
+    $cols = [ '\w+name$' => 'lead_name', 'email'=> 'lead_email', '(contact|mobile|phone)([-_]?number)?$'=> 'lead_phone', '^(utm|utm_source)$' => 'lead_utm']; 
     foreach($cols as $regex => $col){
         foreach($data as $k => $v){
             if(preg_match('/'. $regex .'/i', $k)){
